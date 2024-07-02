@@ -14,8 +14,8 @@ jobs:
        - name: check out the repository
          uses: actions/checkout@v4
 
-    #    - name: Generate deployment package
-    #      run: zip -r deploy.zip . -x '*.git*'
+       - name: Generate deployment package
+         run: zip -r deploy.zip . -x '*.git*'
 
     #    - name: "Logs into docker"
     #      uses: docker/login-action@v3
@@ -40,6 +40,6 @@ jobs:
             aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             application_name: 2books
             environment_name: test-env
-            version_label: 12345
+            version_label: app-3fc4-240702_145212014069
             region: eu-north-1
             # deployment_package: deploy.zip
