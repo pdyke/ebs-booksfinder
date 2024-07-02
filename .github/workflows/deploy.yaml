@@ -37,8 +37,8 @@ jobs:
        - name: Deploy to Elastic Beanstalk
          run: |
             eb init -p docker 2books --region eu-north-1
-            eb create testenv
-            eb deploy
+            eb create test-env
+            # eb deploy
 
     #    - name: Deploy to EB
     #      uses: einaregilsson/beanstalk-deploy@v22
