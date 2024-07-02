@@ -14,8 +14,8 @@ jobs:
        - name: check out the repository
          uses: actions/checkout@v4
 
-    #    - name: Generate deployment package
-    #      run: zip -r deploy.zip . -x '*.git*'
+       - name: Generate deployment package
+         run: zip -r deploy.zip . -x '*.git*'
 
     #    - name: "Logs into docker"
     #      uses: docker/login-action@v3
@@ -43,19 +43,19 @@ jobs:
             role-duration-seconds: 1200
             aws-region: eu-north-1
 
-       - name: Deploy to Elastic Beanstalk
-         run: |
-            eb init -p docker 2books --region eu-north-1
-            eb create testenv
-            # eb deploy
+    #    - name: Deploy to Elastic Beanstalk
+    #      run: |
+    #         eb init -p docker 2books --region eu-north-1
+    #         eb create testenv
+    #         # eb deploy
 
-    #    - name: Deploy to EB
-    #      uses: einaregilsson/beanstalk-deploy@v22
-    #      with:
-    #         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #         application_name: 2books
-    #         environment_name: test-env
-    #         version_label: app-3fc4-240702_145212014069
-    #         region: eu-north-1
-            # deployment_package: deploy.zip
+       - name: Deploy to EB
+         uses: einaregilsson/beanstalk-deploy@v22
+         with:
+            aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            application_name: 2books
+            environment_name: test-env
+            version_label: 12345
+            region: eu-north-1
+            deployment_package: deploy.zip
