@@ -40,6 +40,7 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             role-to-assume: arn:aws:iam::381553522754:role/GithubActionRole
+            role-duration-seconds: 1200
             aws-region: eu-north-1
 
        - name: Deploy to Elastic Beanstalk
