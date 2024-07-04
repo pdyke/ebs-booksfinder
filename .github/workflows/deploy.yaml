@@ -14,9 +14,6 @@ jobs:
        - name: check out the repository
          uses: actions/checkout@v4
 
-    #    - name: Generate deployment package
-    #      run: zip -r deploy.zip . -x '*.git*'
-
        - name: Set up Python
          uses: actions/setup-python@v2
          with:
@@ -30,36 +27,16 @@ jobs:
          run: |
             pip install --upgrade awsebcli
 
-    #    - name: Configure AWS Credentials
-    #      uses: aws-actions/configure-aws-credentials@v4
-    #      with:
-    #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #         aws-region: eu-north-1
-    #         role-to-assume: arn:aws:iam::381553522754:role/GithubActionRole
-
        - name: Configure AWS credentials
          uses: aws-actions/configure-aws-credentials@v1
          with:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            role-to-assume: arn:aws:iam::381553522754:role/GithubActionRole
+            role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
             role-duration-seconds: 1200
-            aws-region: eu-north-1
+            aws-region: ${{ secrets.AWS_REGION }}
 
        - name: Deploy to Elastic Beanstalk
          run: |
-            eb init -p docker 2books --region eu-north-1
+            eb init -p docker 2books --region ${{ secrets.AWS_REGION }}
             eb create test-env
-            # eb deploy
-
-    #    - name: Deploy to EB
-    #      uses: einaregilsson/beanstalk-deploy@v22
-    #      with:
-    #         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #         application_name: 2books
-    #         environment_name: test-env
-    #         version_label: 12345
-    #         region: eu-north-1
-    #         deployment_package: deploy.zip
